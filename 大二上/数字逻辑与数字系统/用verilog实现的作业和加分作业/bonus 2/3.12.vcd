@@ -1,0 +1,90 @@
+$date
+	Sun Nov 24 16:59:56 2024
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1ps
+$end
+$scope module Verilog1_tb $end
+$scope module Verilog1 $end
+$var wire 1 ! clk $end
+$var reg 4 " q [3:0] $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+$comment Show the parameter values. $end
+$dumpall
+$end
+#0
+$dumpvars
+b0 "
+0!
+$end
+#100
+b1 "
+1!
+#200
+0!
+#300
+b10 "
+1!
+#400
+0!
+#500
+b11 "
+1!
+#600
+0!
+#700
+b100 "
+1!
+#800
+0!
+#900
+b101 "
+1!
+#1000
+0!
+#1100
+b110 "
+1!
+#1200
+0!
+#1300
+b111 "
+1!
+#1400
+0!
+#1500
+b1000 "
+1!
+#1600
+0!
+#1700
+b1001 "
+1!
+#1800
+0!
+#1900
+b1010 "
+1!
+#2000
+0!
+#2100
+b1011 "
+1!
+#2200
+0!
+#2300
+b0 "
+1!
+#2400
+0!
+#2500
+b1 "
+1!
+#2600
+0!
+#2700

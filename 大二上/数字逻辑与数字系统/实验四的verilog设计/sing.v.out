@@ -1,0 +1,165 @@
+#! /c/Source/iverilog-install/bin/vvp
+:ivl_version "12.0 (devel)" "(s20150603-1539-g2693dd32b)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision + 0;
+:vpi_module "D:\iverilog\lib\ivl\system.vpi";
+:vpi_module "D:\iverilog\lib\ivl\vhdl_sys.vpi";
+:vpi_module "D:\iverilog\lib\ivl\vhdl_textio.vpi";
+:vpi_module "D:\iverilog\lib\ivl\v2005_math.vpi";
+:vpi_module "D:\iverilog\lib\ivl\va_math.vpi";
+S_0000026c33516750 .scope module, "sing" "sing" 2 1;
+ .timescale 0 0;
+    .port_info 0 /INPUT 1 "clk";
+    .port_info 1 /INPUT 1 "reset";
+    .port_info 2 /INPUT 8 "keys";
+    .port_info 3 /OUTPUT 1 "speaker";
+    .port_info 4 /OUTPUT 8 "freq";
+P_0000026c335168e0 .param/l "FREQ_A1" 0 2 15, +C4<00000000000000000000000001110010>;
+P_0000026c33516918 .param/l "FREQ_B1" 0 2 16, +C4<00000000000000000000000001100101>;
+P_0000026c33516950 .param/l "FREQ_C1" 0 2 10, +C4<00000000000000000000000010111110>;
+P_0000026c33516988 .param/l "FREQ_C2" 0 2 17, +C4<00000000000000000000000001100000>;
+P_0000026c335169c0 .param/l "FREQ_D1" 0 2 11, +C4<00000000000000000000000010101010>;
+P_0000026c335169f8 .param/l "FREQ_E1" 0 2 12, +C4<00000000000000000000000010011000>;
+P_0000026c33516a30 .param/l "FREQ_F1" 0 2 13, +C4<00000000000000000000000010001111>;
+P_0000026c33516a68 .param/l "FREQ_G1" 0 2 14, +C4<00000000000000000000000010000000>;
+o0000026c333d6fb8 .functor BUFZ 1, C4<z>; HiZ drive
+v0000026c33516c80_0 .net "clk", 0 0, o0000026c333d6fb8;  0 drivers
+v0000026c33516ea0_0 .var "freq", 0 7;
+o0000026c333d7018 .functor BUFZ 8, C4<zzzzzzzz>; HiZ drive
+v0000026c333d3df0_0 .net "keys", 0 7, o0000026c333d7018;  0 drivers
+o0000026c333d7048 .functor BUFZ 1, C4<z>; HiZ drive
+v0000026c333d3e90_0 .net "reset", 0 0, o0000026c333d7048;  0 drivers
+v0000026c333d3f30_0 .var "speaker", 0 0;
+v0000026c333d3fd0_0 .var "temp", 0 7;
+E_0000026c33519410 .event posedge, v0000026c33516c80_0;
+E_0000026c33519a50 .event anyedge, v0000026c333d3df0_0;
+    .scope S_0000026c33516750;
+T_0 ;
+    %pushi/vec4 0, 0, 8;
+    %store/vec4 v0000026c333d3fd0_0, 0, 8;
+    %end;
+    .thread T_0;
+    .scope S_0000026c33516750;
+T_1 ;
+    %wait E_0000026c33519a50;
+    %load/vec4 v0000026c333d3df0_0;
+    %parti/s 1, 7, 4;
+    %flag_set/vec4 8;
+    %jmp/0 T_1.0, 8;
+    %pushi/vec4 190, 0, 32;
+    %jmp/1 T_1.1, 8;
+T_1.0 ; End of true expr.
+    %load/vec4 v0000026c333d3df0_0;
+    %parti/s 1, 6, 4;
+    %flag_set/vec4 9;
+    %jmp/0 T_1.2, 9;
+    %pushi/vec4 170, 0, 32;
+    %jmp/1 T_1.3, 9;
+T_1.2 ; End of true expr.
+    %load/vec4 v0000026c333d3df0_0;
+    %parti/s 1, 5, 4;
+    %flag_set/vec4 10;
+    %jmp/0 T_1.4, 10;
+    %pushi/vec4 152, 0, 32;
+    %jmp/1 T_1.5, 10;
+T_1.4 ; End of true expr.
+    %load/vec4 v0000026c333d3df0_0;
+    %parti/s 1, 4, 4;
+    %flag_set/vec4 11;
+    %jmp/0 T_1.6, 11;
+    %pushi/vec4 143, 0, 32;
+    %jmp/1 T_1.7, 11;
+T_1.6 ; End of true expr.
+    %load/vec4 v0000026c333d3df0_0;
+    %parti/s 1, 3, 3;
+    %flag_set/vec4 12;
+    %jmp/0 T_1.8, 12;
+    %pushi/vec4 128, 0, 32;
+    %jmp/1 T_1.9, 12;
+T_1.8 ; End of true expr.
+    %load/vec4 v0000026c333d3df0_0;
+    %parti/s 1, 2, 3;
+    %flag_set/vec4 13;
+    %jmp/0 T_1.10, 13;
+    %pushi/vec4 114, 0, 32;
+    %jmp/1 T_1.11, 13;
+T_1.10 ; End of true expr.
+    %load/vec4 v0000026c333d3df0_0;
+    %parti/s 1, 1, 2;
+    %flag_set/vec4 14;
+    %jmp/0 T_1.12, 14;
+    %pushi/vec4 101, 0, 32;
+    %jmp/1 T_1.13, 14;
+T_1.12 ; End of true expr.
+    %load/vec4 v0000026c333d3df0_0;
+    %parti/s 1, 0, 2;
+    %flag_set/vec4 15;
+    %jmp/0 T_1.14, 15;
+    %pushi/vec4 96, 0, 32;
+    %jmp/1 T_1.15, 15;
+T_1.14 ; End of true expr.
+    %pushi/vec4 0, 0, 32;
+    %jmp/0 T_1.15, 15;
+ ; End of false expr.
+    %blend;
+T_1.15;
+    %jmp/0 T_1.13, 14;
+ ; End of false expr.
+    %blend;
+T_1.13;
+    %jmp/0 T_1.11, 13;
+ ; End of false expr.
+    %blend;
+T_1.11;
+    %jmp/0 T_1.9, 12;
+ ; End of false expr.
+    %blend;
+T_1.9;
+    %jmp/0 T_1.7, 11;
+ ; End of false expr.
+    %blend;
+T_1.7;
+    %jmp/0 T_1.5, 10;
+ ; End of false expr.
+    %blend;
+T_1.5;
+    %jmp/0 T_1.3, 9;
+ ; End of false expr.
+    %blend;
+T_1.3;
+    %jmp/0 T_1.1, 8;
+ ; End of false expr.
+    %blend;
+T_1.1;
+    %pad/u 8;
+    %assign/vec4 v0000026c33516ea0_0, 0;
+    %jmp T_1;
+    .thread T_1, $push;
+    .scope S_0000026c33516750;
+T_2 ;
+    %wait E_0000026c33519410;
+    %load/vec4 v0000026c333d3fd0_0;
+    %pad/u 32;
+    %load/vec4 v0000026c333d3df0_0;
+    %pad/u 32;
+    %subi 1, 0, 32;
+    %cmp/e;
+    %jmp/0xz  T_2.0, 4;
+    %load/vec4 v0000026c333d3f30_0;
+    %inv;
+    %assign/vec4 v0000026c333d3f30_0, 0;
+    %pushi/vec4 0, 0, 8;
+    %store/vec4 v0000026c333d3fd0_0, 0, 8;
+    %jmp T_2.1;
+T_2.0 ;
+    %load/vec4 v0000026c333d3fd0_0;
+    %addi 1, 0, 8;
+    %assign/vec4 v0000026c333d3fd0_0, 0;
+T_2.1 ;
+    %jmp T_2;
+    .thread T_2;
+# The file index is used to find the file name in the following table.
+:file_names 3;
+    "N/A";
+    "<interactive>";
+    "sing.v";
