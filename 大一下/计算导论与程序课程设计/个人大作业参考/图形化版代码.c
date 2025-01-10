@@ -1,10 +1,10 @@
 #define _CRT_SECURE_NO_WARNINGS
-#pragma warning(disable:6031)
-#include<graphics.h>
-#include<conio.h>
-#include<stdio.h>	
-#include<stdlib.h>
-#include<string.h>
+#pragma warning(disable : 6031)
+#include <graphics.h> //需要easyx库
+#include <conio.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #define BAR_WIDTH 300
 #define BAR_HEIGHT 40
 #define SLIDER_WIDTH 20
@@ -34,26 +34,27 @@ typedef struct Order
 	int con;
 	int showtime;
 } order;
-typedef struct {
+typedef struct
+{
 	int x, y;
 	int value;
 } ProgressBar;
-food* foods = NULL;
+food *foods = NULL;
 int foodsize = 0;
-set* sets = NULL;
+set *sets = NULL;
 int setsize = 0;
 order orders[100];
 int ordersize = 0;
 int w1;
 int w2;
-int ordernum = 0; //每秒正在制作的订单数
-int ordercon = 2; //系统状态，2代表关闭，1代表开放
-int porder = -1;  //最早的正在制作的订单号
+int ordernum = 0; // 每秒正在制作的订单数
+int ordercon = 2; // 系统状态，2代表关闭，1代表开放
+int porder = -1;  // 最早的正在制作的订单号
 int TIME = 0;
 int time;
 int check;
-int ac = 0;       //加速倍数
-int foodmax = 1;//全局变量
+int ac = 0;		 // 加速倍数
+int foodmax = 1; // 全局变量
 int shine;
 char timept[10];
 ExMessage a;
@@ -117,10 +118,10 @@ void initializefoodset()
 {
 	int a, c, d;
 	char b[60];
-	FILE* fptr;
+	FILE *fptr;
 	fptr = fopen("dict.dic", "r");
 	fscanf(fptr, "%d %d", &foodsize, &setsize);
-	foods = (food*)malloc(foodsize * sizeof(food));
+	foods = (food *)malloc(foodsize * sizeof(food));
 	for (a = 0; a < foodsize; a++)
 	{
 		fscanf(fptr, "%s", foods[a].foodname);
@@ -132,12 +133,12 @@ void initializefoodset()
 	for (a = 0; a < foodsize; a++)
 	{
 		fscanf(fptr, "%d", &foods[a].foodmax);
-		if (foods[a].foodmax > foodmax)//判定最大数
+		if (foods[a].foodmax > foodmax) // 判定最大数
 			foodmax = foods[a].foodmax;
 		foods[a].orderfinnum = foods[a].ordernum = foods[a].remain = foods[a].timer = 0;
 	}
 	fscanf(fptr, "%d %d", &w1, &w2);
-	sets = (set*)malloc(setsize * sizeof(set));
+	sets = (set *)malloc(setsize * sizeof(set));
 	fscanf(fptr, "%s", sets[0].setname);
 	a = c = 0;
 	while (!feof(fptr))
@@ -207,7 +208,6 @@ void processorder(int a, int c)
 			foods[orders[a].foodid[b]].orderfinnum--;
 			orders[a].foodcon[b] = 1;
 		}
-
 	}
 	if (judgeorder(a) == 2)
 	{
@@ -228,7 +228,7 @@ void printorder()
 {
 	int a;
 	int hour, minute, second;
-	FILE* fptr;
+	FILE *fptr;
 	fptr = fopen("output.txt", "w");
 	for (a = 0; a < ordersize; a++)
 	{
@@ -275,7 +275,7 @@ void doorder()
 	makefood();
 }
 
-void printText(int x, int y, const char* text, int fontSize, const char* fontType, COLORREF fillColor, COLORREF textColor)
+void printText(int x, int y, const char *text, int fontSize, const char *fontType, COLORREF fillColor, COLORREF textColor)
 {
 	// 保存当前字体设置
 	LOGFONT oldFont;
@@ -358,7 +358,7 @@ void clickorderfood(int x)
 		peekmessage(&a);
 		if (a.message == WM_LBUTTONDOWN)
 		{
-			if (a.x > 800 && a.x < 880 && a.y>290 && a.y < 370)
+			if (a.x > 800 && a.x < 880 && a.y > 290 && a.y < 370)
 			{
 				orders[ordersize].ordertime = time;
 				orders[ordersize].foodid[0] = x;
@@ -405,7 +405,7 @@ void clickorderset(int x)
 		peekmessage(&a);
 		if (a.message == WM_LBUTTONDOWN)
 		{
-			if (a.x > 800 && a.x < 880 && a.y>290 && a.y < 370)
+			if (a.x > 800 && a.x < 880 && a.y > 290 && a.y < 370)
 			{
 				orders[ordersize].ordertime = time;
 				for (b = 0; b < sets[x].size; b++)
@@ -463,12 +463,12 @@ void drawfoodset()
 	for (x = 0; x < setsize; x++)
 	{
 		setfillcolor(YELLOW);
-		solidroundrect(360, x * 50 + 65, 650, x * 50 + 105, 20, 20);//  x右边改为了650，鼠标识别
+		solidroundrect(360, x * 50 + 65, 650, x * 50 + 105, 20, 20); //  x右边改为了650，鼠标识别
 		outtextxy(370, x * 50 + 70, sets[x].setname);
 		y = 0;
 		for (z = 0; z <= foodmax && y != -1; z++)
 		{
-			for (y = 0; y < sets[x].size; y++)//判定多套餐
+			for (y = 0; y < sets[x].size; y++) // 判定多套餐
 				if (foods[sets[x].foodid[y]].remain == z)
 				{
 					sprintf(w, "%d", z);
@@ -496,10 +496,13 @@ void failprint()
 		printText(1040, 700, "号订单下单失败", 30, "宋体", RED, BLACK);
 	}
 }
-void printunfinish() {
+void printunfinish()
+{
 	int x = 1430, y = 610;
-	for (int i = 0; i < ordersize; i++) {
-		if (orders[i].con == 1) {
+	for (int i = 0; i < ordersize; i++)
+	{
+		if (orders[i].con == 1)
+		{
 			char temp[10], str[10];
 			int hour, minute, second;
 			hour = orders[i].finishtime / 3600;
@@ -512,13 +515,14 @@ void printunfinish() {
 			y += 30;
 		}
 	}
-
 }
-void printfinish() {
+void printfinish()
+{
 	int x = 1380;
 	int y = 110;
-	for (int i = 0; i < ordersize; i++) {
-		if (orders[i].con == 2 && orders[i].showtime > -1) //多显示一秒
+	for (int i = 0; i < ordersize; i++)
+	{
+		if (orders[i].con == 2 && orders[i].showtime > -1) // 多显示一秒
 		{
 			char temp[10], str[10];
 			int hour, minute, second;
@@ -536,17 +540,18 @@ void printfinish() {
 		}
 	}
 }
-void drawrightside() {
+void drawrightside()
+{
 	setfillcolor(RGB(237, 237, 237));
 	setlinecolor(RGB(237, 237, 237));
 	fillroundrect(1300, 0, 1599, 500, 20, 20);
 	fillroundrect(1300, 501, 1599, 999, 20, 20);
 	setfont(50, 0, "行楷");
-	drawRoundRect(1300, 8, 1480, 50, 20, 20, RGB(86, 97, 130));  //完成订单
-	drawRoundRect(1300, 508, 1480, 550, 20, 20, RGB(86, 97, 130));  //正在制作
-	drawRoundRect(1310, 68, 1420, 100, 20, 20, RGB(86, 97, 130));  //订单号
-	drawRoundRect(1440, 68, 1580, 100, 20, 20, RGB(86, 97, 130));  //完成时间
-	drawRoundRect(1390, 562, 1500, 600, 20, 20, RGB(86, 97, 130));  //订单号
+	drawRoundRect(1300, 8, 1480, 50, 20, 20, RGB(86, 97, 130));	   // 完成订单
+	drawRoundRect(1300, 508, 1480, 550, 20, 20, RGB(86, 97, 130)); // 正在制作
+	drawRoundRect(1310, 68, 1420, 100, 20, 20, RGB(86, 97, 130));  // 订单号
+	drawRoundRect(1440, 68, 1580, 100, 20, 20, RGB(86, 97, 130));  // 完成时间
+	drawRoundRect(1390, 562, 1500, 600, 20, 20, RGB(86, 97, 130)); // 订单号
 	printText(1310, 10, "完成订单", 40, "隶书", RGB(86, 97, 130), BLACK);
 	printText(1310, 510, "正在制作", 40, "隶书", RGB(86, 97, 130), BLACK);
 	printText(1320, 70, "订单号", 30, "行楷", RGB(86, 97, 130), BLACK);
@@ -580,7 +585,7 @@ void drawtheclock()
 	{
 		print_the_time();
 	}
-	printText(864, 40, "speed up", 27, "Times New Roman", LIGHTBLUE, WHITE);    //speed up location
+	printText(864, 40, "speed up", 27, "Times New Roman", LIGHTBLUE, WHITE); // speed up location
 }
 void change_TIME()
 {
@@ -589,14 +594,13 @@ void change_TIME()
 	if (ac != 100)
 		Sleep(1000 / ac);
 	else
-	Sleep(5);
-		TIME++;
+		Sleep(5);
+	TIME++;
 }
 void drawexit()
 {
 	drawRoundRect(600, 600, 700, 700, 20, 20, RGB(189, 134, 201));
 	printText(620, 630, "Exit", 40, "Times New Roman", RGB(189, 134, 201), WHITE);
-
 }
 void checkclick()
 {
@@ -641,7 +645,7 @@ void checkclick()
 		}
 		else if (a.message == WM_RBUTTONDOWN)
 		{
-			if (a.x > 800 && a.x < 900 && a.y>800 && a.y < 900)
+			if (a.x > 800 && a.x < 900 && a.y > 800 && a.y < 900)
 			{
 				t = 1;
 				break;
@@ -653,7 +657,8 @@ void checkclick()
 	drawRoundRect(800, 800, 900, 900, 20, 20, LIGHTBLUE);
 	printText(810, 830, "点餐", 40, "楷体", LIGHTBLUE, WHITE);
 }
-void drawProgressBar(ProgressBar* bar) {
+void drawProgressBar(ProgressBar *bar)
+{
 	setfillcolor(LIGHTGRAY);
 	solidrectangle(bar->x, bar->y, bar->x + BAR_WIDTH, bar->y + BAR_HEIGHT);
 	setfillcolor(GREEN);
@@ -661,10 +666,10 @@ void drawProgressBar(ProgressBar* bar) {
 	setfillcolor(RED);
 	solidrectangle(bar->x + bar->value * (BAR_WIDTH - SLIDER_WIDTH) / 100, bar->y, bar->x + bar->value * (BAR_WIDTH - SLIDER_WIDTH) / 100 + SLIDER_WIDTH, bar->y + BAR_HEIGHT);
 }
-void  dragbar()
+void dragbar()
 {
 	int x;
-	ProgressBar bar = { 965, 20, 50 };
+	ProgressBar bar = {965, 20, 50};
 	char str[4];
 	while (1)
 	{
@@ -673,16 +678,20 @@ void  dragbar()
 		x = bar.value;
 		if (x == 100)
 			x = 200;
-		sprintf_s(str, "%d",x);
+		sprintf_s(str, "%d", x);
 		printText(1220, 100, str, 40, "黑体", YELLOW, BLACK);
 		printText(1000, 100, "加速时间倍数:", 30, "楷体", RED, BLACK);
 		if (peekmessage(&a))
 		{
-			if (a.message == WM_MOUSEMOVE) {
-				if (a.x >= bar.x && a.x <= bar.x + BAR_WIDTH && a.y >= bar.y && a.y <= bar.y + BAR_HEIGHT) {
+			if (a.message == WM_MOUSEMOVE)
+			{
+				if (a.x >= bar.x && a.x <= bar.x + BAR_WIDTH && a.y >= bar.y && a.y <= bar.y + BAR_HEIGHT)
+				{
 					bar.value = (a.x - bar.x) * 100 / (BAR_WIDTH - SLIDER_WIDTH);
-					if (bar.value < 0) bar.value = 0;
-					if (bar.value > 100) bar.value = 100;
+					if (bar.value < 0)
+						bar.value = 0;
+					if (bar.value > 100)
+						bar.value = 100;
 				}
 			}
 			else if (a.message == WM_LBUTTONDOWN)
@@ -706,7 +715,7 @@ void changefin(int a)
 	hour = orders[a].finishtime / 3600;
 	minute = (orders[a].finishtime % 3600) / 60;
 	second = orders[a].finishtime % 60;
-	printf("%02d:%02d:%02d ",hour, minute, second);
+	printf("%02d:%02d:%02d ", hour, minute, second);
 }
 void changestart(int a)
 {
@@ -718,7 +727,7 @@ void changestart(int a)
 }
 void print()
 {
-	int a,b;
+	int a, b;
 	for (a = 0; a < ordersize; a++)
 	{
 		printf("订单编号%d ", a);
@@ -735,7 +744,7 @@ void print()
 			printf("订单完成时间");
 			changefin(a);
 		}
-		else if(orders[a].con==1)
+		else if (orders[a].con == 1)
 		{
 			printf("订单已分配未完成");
 		}
@@ -753,7 +762,7 @@ int main()
 	scanf("%d", &shine);
 	initgraph(1600, 1000);
 	loadimage(&img, "2.jpg", 1600, 1000);
-	putimage(0, 0, &img);	// 在另一个位置再次显示背景
+	putimage(0, 0, &img); // 在另一个位置再次显示背景
 	drawinitiate();
 	initializefoodset();
 	drawexit();
@@ -786,7 +795,7 @@ int main()
 		time = TIME + 25200;
 		drawrightside();
 		drawfoodset();
-		drawexit();	
+		drawexit();
 		failprint();
 		while (peekmessage(&a))
 		{
@@ -824,7 +833,7 @@ int main()
 		printunfinish();
 		for (int i = 0; i < ordersize; i++)
 		{
-			if (orders[i].showtime > -1&&orders[i].con!=1) //多显示一秒
+			if (orders[i].showtime > -1 && orders[i].con != 1) // 多显示一秒
 				orders[i].showtime--;
 		}
 		change_TIME();
