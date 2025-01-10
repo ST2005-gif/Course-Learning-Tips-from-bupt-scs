@@ -1,0 +1,8 @@
+7
+08:00:00 Coke
+08:00:01 BigMac
+08:00:02 BigMac
+08:00:03 BigMac
+08:00:34 Coke
+08:00:35 Coke
+08:00:36 Coke
